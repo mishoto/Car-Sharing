@@ -10,21 +10,23 @@ public final class DbUtils {
     private DbUtils() {
     }
 
-    public static void connectToDB(String url, String user, String password) {
-        try (Connection conn = DriverManager.getConnection(url, user, password);
+    public static void connectToH2FileDb() {
+        final String FILE_PATH = "D:\\0_SoftServe_Academy\\Car Sharing\\Car Sharing\\task\\src\\carsharing\\db\\carsharing";
+        final String DATABASE_URL = "jdbc:h2:" + FILE_PATH;
+        try (Connection conn = DriverManager.getConnection(DATABASE_URL, "", "");
              Statement statement = conn.createStatement()) {
             conn.setAutoCommit(true);
             statement.execute(
                     "CREATE TABLE IF NOT EXISTS COMPANY (" +
                             "ID INT auto_increment primary key," +
-                            "NAME VARCHAR(128) NOT NULL" +
+                            "NAME VARCHAR(128) NOT NULL UNIQUE" +
                             ")");
 
 
             if (conn != null) {
                 System.out.println("Connection to database successful");
             }
-//            conn.commit();
+
         } catch (SQLException sqlException) {
             System.err.println("An Error occurred while connecting to database!");
             sqlException.printStackTrace();
