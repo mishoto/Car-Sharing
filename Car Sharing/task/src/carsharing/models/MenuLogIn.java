@@ -1,6 +1,6 @@
 package carsharing.models;
 
-import static java.lang.System.out;
+import static java.lang.System.*;
 
 public class MenuLogIn extends Menu{
 
