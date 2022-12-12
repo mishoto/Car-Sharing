@@ -1,5 +1,6 @@
 package carsharing.models;
 
+
 public class Company {
     private final String name;
 

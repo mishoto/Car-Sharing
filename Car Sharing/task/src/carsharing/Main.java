@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DbUtils.connectToH2FileDb();
+        DbUtils.dbInitialize();
         Display display = new Display();
         display.show();
 
