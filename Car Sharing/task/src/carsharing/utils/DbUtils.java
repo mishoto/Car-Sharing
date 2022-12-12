@@ -1,35 +1,26 @@
 package carsharing.utils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import carsharing.repository.H2DbConnection;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static java.lang.System.*;
+
 public final class DbUtils {
 
-    private DbUtils() {
-    }
+    private static final H2DbConnection h2DbConnection = H2DbConnection.getInstance();
 
-    public static void connectToH2FileDb() {
-        final String FILE_PATH = "D:\\0_SoftServe_Academy\\Car Sharing\\Car Sharing\\task\\src\\carsharing\\db\\carsharing";
-        final String DATABASE_URL = "jdbc:h2:" + FILE_PATH;
-        try (Connection conn = DriverManager.getConnection(DATABASE_URL, "", "");
-             Statement statement = conn.createStatement()) {
-            conn.setAutoCommit(true);
-            statement.execute(
-                    "CREATE TABLE IF NOT EXISTS COMPANY (" +
-                            "ID INT auto_increment primary key," +
-                            "NAME VARCHAR(128) NOT NULL UNIQUE" +
-                            ")");
+    private DbUtils() {}
 
-
-            if (conn != null) {
-                System.out.println("Connection to database successful");
-            }
-
-        } catch (SQLException sqlException) {
-            System.err.println("An Error occurred while connecting to database!");
+    public static void dbInitialize(){
+        h2DbConnection.h2Connect();
+        try(Statement statement = h2DbConnection.getConnection().createStatement()){
+            statement.execute(Constants.SqlInitialQueries.CREATE_COMPANY_TABLE);
+        }catch (SQLException sqlException){
+            err.println("An Error occurred while connecting to database!");
             sqlException.printStackTrace();
         }
+        h2DbConnection.h2Disconnect();
     }
 }
