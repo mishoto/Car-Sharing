@@ -1,5 +1,7 @@
 package carsharing.utils;
 
+import carsharing.repository.H2DbConnection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,25 +11,21 @@ import static java.lang.System.*;
 
 public final class DbUtils {
 
-    private DbUtils() {
-    }
+    private static final H2DbConnection h2DbConnection = H2DbConnection.getInstance();
 
-    public static void connectToH2FileDb() {
-        final String filePath = Constants.H2FileDb.FILE_PATH;
-        final String dbURL = Constants.H2FileDb.DB_PREFIX_URL + filePath;
-        final String user = Constants.H2FileDb.DB_USER;
-        final String password = Constants.H2FileDb.DB_PASSWORD;
+    private DbUtils() {}
 
-        try (Connection conn = DriverManager.getConnection(dbURL, user, password);
-             Statement statement = conn.createStatement()) {
-            conn.setAutoCommit(true);
+    public static void dbInitialize(){
+        h2DbConnection.h2Connect();
+        try(Statement statement = h2DbConnection.getConnection().createStatement()){
+            statement.execute(Constants.SqlInitialQueries.CREATE_CAR_SHARING_SCHEMA);
+            out.println("Initialize CAR_SHARING schema");
             statement.execute(Constants.SqlInitialQueries.CREATE_COMPANY_TABLE);
-
-            out.println("Connection to database successful");
-
-        } catch (SQLException sqlException) {
+            out.println("Initialize CAR_SHARING.COMPANY table");
+        }catch (SQLException sqlException){
             err.println("An Error occurred while connecting to database!");
             sqlException.printStackTrace();
         }
+        h2DbConnection.h2Disconnect();
     }
 }
