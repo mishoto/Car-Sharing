@@ -1,5 +1,8 @@
 package carsharing.models;
 
+import carsharing.models.menucompany.MenuCompanyCreate;
+import carsharing.models.menucompany.MenuCompanyList;
+
 import static java.lang.System.*;
 
 public class MenuLogIn extends Menu{
@@ -9,7 +12,7 @@ public class MenuLogIn extends Menu{
     }
 
     @Override
-    void onNext(int option) {
+    protected void onNext(int option) {
         switch (option) {
             case 0: {
                 onBack();
@@ -31,12 +34,12 @@ public class MenuLogIn extends Menu{
     }
 
     @Override
-    void onBack() {
+    protected void onBack() {
         display.setDisplay(new MenuStart(display));
     }
 
     @Override
-    void print() {
+    protected void print() {
         StringBuilder sb = new StringBuilder();
         sb.append("1. Company list\n" +
                 "2. Create a company\n" +

@@ -9,7 +9,7 @@ public class MenuStart extends Menu {
     }
 
     @Override
-    void onNext(int option) {
+    protected void onNext(int option) {
         switch (option) {
             case 1:
                 display.setDisplay(new MenuLogIn(display));
@@ -23,12 +23,12 @@ public class MenuStart extends Menu {
     }
 
     @Override
-    void onBack() {
+    protected void onBack() {
         System.exit(0);
     }
 
     @Override
-    void print() {
+    protected void print() {
         StringBuilder sb = new StringBuilder();
         sb.append("1. Log in as a manager\n" +
                 "0. Exit\n" +

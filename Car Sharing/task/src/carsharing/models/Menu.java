@@ -10,7 +10,7 @@ public abstract class Menu {
         this.display = display;
     }
 
-    abstract void onNext(int option);
-    abstract void onBack();
-    abstract void print();
+    protected abstract void onNext(int option);
+    protected abstract void onBack();
+    protected abstract void print();
 }

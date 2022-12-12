@@ -18,10 +18,10 @@ public class CompanyRepository {
         this.h2DbConnection = H2DbConnection.getInstance();
     }
 
-    public List<Company> getAllCompaniesPaginated() {
+    public List<Company> getAllCompanies() {
         List<Company> companyList = new ArrayList<>();
         h2DbConnection.h2Connect();
-        try(PreparedStatement statement = h2DbConnection.getConnection().prepareStatement(Constants.SqlCompanyQueries.GET_ALL_COMPANIES_PAGINATED)){
+        try(PreparedStatement statement = h2DbConnection.getConnection().prepareStatement(Constants.SqlCompanyQueries.GET_ALL_COMPANIES)){
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 companyList.add(new Company(resultSet.getString("name")));
@@ -43,5 +43,19 @@ public class CompanyRepository {
             sqlException.printStackTrace();
         }
         h2DbConnection.h2Disconnect();
+    }
+
+    public Company getCompany(int id){
+        Company company = null;
+        h2DbConnection.h2Connect();
+        try(PreparedStatement statement = h2DbConnection.getConnection().prepareStatement(Constants.SqlCompanyQueries.GET_COMPANY_BY_ID)){
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+                company = new Company(resultSet.getString("name"));
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        h2DbConnection.h2Disconnect();
+        return company;
     }
 }

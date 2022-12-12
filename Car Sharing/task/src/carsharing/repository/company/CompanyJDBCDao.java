@@ -14,13 +14,13 @@ public class CompanyJDBCDao implements Dao<Company> {
     }
 
     @Override
-    public Optional<Company> get(long id) {
+    public Optional<Company> get(int id) {
         return Optional.empty();
     }
 
     @Override
     public List<Company> getAll() {
-        return companyRepository.getAllCompaniesPaginated();
+        return companyRepository.getAllCompanies();
     }
 
     @Override
