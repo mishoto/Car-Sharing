@@ -16,7 +16,11 @@ public final class Constants {
 
     public static final class SqlInitialQueries{
         private SqlInitialQueries(){};
-        public static final String CREATE_COMPANY_TABLE = "CREATE TABLE IF NOT EXISTS COMPANY (" +
+        public static final String CREATE_CAR_SHARING_SCHEMA =
+                "CREATE SCHEMA IF NOT EXISTS car_sharing";
+
+        public static final String CREATE_COMPANY_TABLE =
+                "CREATE TABLE IF NOT EXISTS car_sharing.company (" +
                 "ID INT auto_increment primary key," +
                 "NAME VARCHAR(128) NOT NULL UNIQUE" +
                 ")";
