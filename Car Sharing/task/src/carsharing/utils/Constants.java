@@ -15,14 +15,25 @@ public final class Constants {
     }
 
     public static final class SqlInitialQueries{
-        private SqlInitialQueries(){};
-        public static final String CREATE_CAR_SHARING_SCHEMA =
-                "CREATE SCHEMA IF NOT EXISTS car_sharing";
+        private SqlInitialQueries(){}
 
         public static final String CREATE_COMPANY_TABLE =
-                "CREATE TABLE IF NOT EXISTS car_sharing.company (" +
-                "ID INT auto_increment primary key," +
-                "NAME VARCHAR(128) NOT NULL UNIQUE" +
+                "CREATE TABLE IF NOT EXISTS company (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "name VARCHAR(128) NOT NULL UNIQUE" +
                 ")";
+    }
+
+    public static final class SqlCompanyQueries{
+        private SqlCompanyQueries(){}
+
+        public static final String CREATE_COMPANY =
+                "INSERT INTO company (name) " +
+                        "VALUES (?)";
+
+        public static final String GET_ALL_COMPANIES_PAGINATED =
+                "SELECT name FROM company " +
+                        "ORDER BY id ASC ";
+
     }
 }

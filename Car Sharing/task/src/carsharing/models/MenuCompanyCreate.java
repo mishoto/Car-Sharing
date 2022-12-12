@@ -25,9 +25,8 @@ public class MenuCompanyCreate extends Menu{
 
     @Override
     void print() {
-        out.println("Enter the company");
-        String[] newCompanyInfo = scanner.nextLine().split(" ");
-        Company newCompany = new Company(newCompanyInfo[0]);
+        out.println("Enter the company name:");
+        Company newCompany = new Company(scanner.nextLine().trim());
         companyDao.save(newCompany);
         out.println();
         onNext(0);

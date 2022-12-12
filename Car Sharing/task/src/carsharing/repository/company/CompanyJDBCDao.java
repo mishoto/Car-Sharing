@@ -20,12 +20,12 @@ public class CompanyJDBCDao implements Dao<Company> {
 
     @Override
     public List<Company> getAll() {
-        return companyRepository.getAllCompanies();
+        return companyRepository.getAllCompaniesPaginated();
     }
 
     @Override
     public void save(Company company) {
-
+        companyRepository.createCompany(company.getName());
     }
 
     @Override

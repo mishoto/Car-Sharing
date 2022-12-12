@@ -28,7 +28,6 @@ public class H2DbConnection {
         try {
             this.connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             this.connection.setAutoCommit(true);
-            out.println("Connection to database successful");
         } catch (SQLException sqlException) {
             err.println("An Error occurred while connecting to database!");
             sqlException.printStackTrace();
@@ -38,7 +37,6 @@ public class H2DbConnection {
     public void h2Disconnect(){
         try {
             this.connection.close();
-            out.println("Connection to database closed.");
         } catch (SQLException sqlException) {
             err.println("An Error occurred while disconnecting from database!");
             sqlException.printStackTrace();
